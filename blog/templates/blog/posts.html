@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}
+Home
+{% endblock title %}
+
+
+<!--Style block-->
+{% block style %}
+{% static 'css/general_style.css' %}
+{% endblock style %}
+
+{% block content %}
+
+<main>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-8 bg-light">
+
+                {% if all_posts %}
+                {% for post in all_posts %}
+                <a href="{% url 'post_view' title=post.title %}" class="post-link">
+                    <div class="post-container ">
+                        <h1 class="post-title">{{ post.title }}</h1>
+                        <p style="text-indent: 7px">
+                            {{ post.created_at|date:"d, M Y, h:m" }} por <cite>{{ post.author.get_full_name }}</cite>
+                        </p>
+
+                        {{ post.summary|safe }}
+
+                        <img class="bg-light" src="{{ post.url_to_image }}" alt="{{ post.title }}" />
+                </div>
+                {% endfor %}
+
+            </a>
+            {% else %}
+            <p class="mt-4 text-center">
+                Nenhuma notícia encontrada!
+            </p>
+            {% endif %}
+        </div>
+
+
+        <div class="col-sm-4 post-category-container">
+            <!--Categoria dos posts-->
+            {% include 'category_posts.html' %}
+            
+            <!--Post veja também-->
+            {% include 'see_more.html' %}
+</div>
+</div>
+
+
+<!--Posts de outras fontes-->
+
+{% include 'other_source_posts.html' %}
+</div>
+
+
+</main>
+{% endblock content %}

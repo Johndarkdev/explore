@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block style %}
+{% static 'css/general_style.css' %}
+{% endblock %}
+
+{% block title %}
+{{ post.title }}
+{% endblock %}
+
+{% block content %}
+<main>
+
+    <div class="container-fluid">
+        <div class="row">
+
+
+            <div class="col-sm-8 bg-light">
+
+                <div class="post-container ">
+                    <article>
+                        <h1 class="post-title">{{ post.title }}</h1>
+
+                        <p>
+                            {{ post.created_at|date:"d, M Y h:m"}} por <cite>{{ post.author.get_full_name }}
+                            </p>
+
+                            <section>
+
+                                {{ post.content|safe }}
+                            </section>
+                        </article>
+                    </div>
+
+                </div>
+
+
+                <div class="col-sm-4 post-category-container">
+            <!--Categoria dos posts-->
+            {% include 'category_posts.html' %}
+            
+            <!--Post veja também-->
+            {% include 'see_more.html' %}
+</div>
+</div>
+
+
+<!--Posts de outras fontes-->
+
+{% include 'other_source_posts.html' %}
+</div>
+
+
+</main>
+{% endblock %}

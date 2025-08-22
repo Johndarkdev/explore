@@ -1,0 +1,26 @@
+<!--Veja também posts -->
+{% if sugested_post %}
+            <div class="container-fluid to-see-post">
+                <h3>Veja também</h3>
+
+                <div class="">
+                    <ul>
+                        {% for post in sugested_post %}
+
+                        <a href="{% url 'post_view' title=post.title %}">
+                            <li>
+                                {% if post.url_to_image %}
+                                <img class="mb-2" src="{{ post.url_to_image }}" alt="{{ post.title }}" />
+                            {% endif %}
+                            <br />
+                        {{ post.title }}
+                    </li>
+                </a>
+                <hr />
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% else%}
+
+{% endif %}

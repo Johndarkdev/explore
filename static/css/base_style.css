@@ -1,0 +1,151 @@
+@charset "UTF-8";
+
+@font-face {
+    font-family: 'Playfair';
+    src: url('/static/css/font/Playfair_Display/PlayfairDisplay-BlackItalic.ttf');
+    format('truetype');
+}
+
+
+@font-face {
+    font-family: 'Roboto';
+    src: url('/static/css/font/Roboto/Roboto-Regular.ttf')
+}
+
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto';
+}
+
+header{
+    padding-bottom: 120px;
+}
+
+.carousel-caption{
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.carousel-caption h5{
+    text-align: left;
+}
+
+.carousel-caption a{
+    float: left;
+}
+
+.navbar-brand{
+    margin-left: 10px;
+}
+
+.navbar-brand h2{
+    font-family: Serif;
+    color: white;
+}
+
+.navbar-brand img{
+    height: 90px;
+    width: 90px;
+}
+
+
+/*Carrousel*/
+.carousel-item img {
+    height: 300px;
+} 
+
+
+/*Footer block*/
+footer {
+    height: 290px;
+    width: 100%;
+}
+
+/*Newsletter Style*/
+.newsletter {
+    margin-top: 20px;
+    color: grey;
+    font: 'Roboto';
+}
+
+.newsletter form {
+    position: absolute;
+    left: 40%;
+    transform: translateX(-50%);
+}
+
+.newsletter form input {
+    border: none;
+    border-radius: 8px;
+}
+
+
+footer div ul {
+    display: inline-flex;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+footer div ul li {
+    list-style: none;
+    padding-right: 10px;
+}
+
+footer div ul li:hover {
+    transform: scale(.9);
+}
+
+footer div ul li a img {
+    height: 30px;
+    width: 30px;
+}
+
+footer div p {
+    padding-top: 45px;
+    text-align: center;
+}
+
+
+
+
+/* Width 420 forward */
+@media (min-width: 420px ) {
+    /*Carousel*/
+    .carousel-caption{
+    position: absolute;
+    top: 50%;
+    transform: translateY(-15%);
+}
+
+    .carousel-item img {
+        height: 500px;
+    }
+
+
+
+    /* Newsletter block */
+    .newsletter form {
+        margin-top: 30px;
+    }
+
+
+    /*Footer block*/
+
+    footer div ul li a img {
+        height: 35px;
+        width: 35px;
+    }
+
+}
+
+
+/*From 766px forward*/
+
+@media (min-width: 766px) {
+
+  
+}

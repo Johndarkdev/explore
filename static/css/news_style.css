@@ -1,0 +1,20 @@
+@charset "UTF-8";
+
+
+
+
+.post-container article{
+    margin-top: 16px;
+}
+
+.post-container article h1{
+    margin-bottom: 16px;
+}
+
+.post-container article section img{
+    margin-bottom: 15px;
+    border-radius: 20px;
+    
+    height: 250px;
+    width: 100%;
+}
