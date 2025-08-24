@@ -120,10 +120,15 @@ class ShowANewsAPIPostView(View):
             "sugested_post": sugested_post
         }
         return render(request, "blog/newsapi_post.html", context)
-        
+
+from django.http import JsonResponse
+import cloudinary.uploader       
         
 class UpdatePostView(View):
     def get(self, request):
-        task_get_posts_and_save()
+       # task_get_posts_and_save()
         
-        return HttpResponse("Posts actualizados com sucesso!")
+       # return HttpResponse("Posts actualizados com sucesso!")
+        result = cloudinary.uploader.upload("/storage/emulated/0/Project/Django/explore/media/uploads/2024/11/17/pexels-ahmet-yigit-koksal-2083491421-29293150.jpg")
+        return JsonResponse(result)
+        

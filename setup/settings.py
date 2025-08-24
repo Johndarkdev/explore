@@ -1,5 +1,7 @@
 from pathlib import Path
 import os
+from decouple import config
+from dj_database_url import parse as db_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -9,20 +11,19 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-b-zfollz!ucnq2vzt65op-%=yw4!i#p7=75)-5*2&sl!6r^bg="
+SECRET_KEY = config("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config("DEBUG", default=False, cast=bool)
 
-ALLOWED_HOSTS = [
-    "*"
-]
+ALLOWED_HOSTS= config("ALLOWED_HOSTS").split(',')
 
 
 # Application definition
 THIRDY_PART_APPS = [
-    'ckeditor',
-    'ckeditor_uploader',
+    'django_ckeditor_5',
+    'cloudinary',
+    'cloudinary_storage'
 ]
 
 MY_APPS = [
@@ -38,7 +39,7 @@ DJANGO_APPS = [
     "django.contrib.staticfiles",
 ]
 
-INSTALLED_APPS = MY_APPS + DJANGO_APPS + THIRDY_PART_APPS
+INSTALLED_APPS = DJANGO_APPS + MY_APPS + THIRDY_PART_APPS
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -75,10 +76,7 @@ WSGI_APPLICATION = "setup.wsgi.application"
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-    }
+    "default" : config("DATA_BASE_URL", cast=db_url, default=f'sqlite:///{BASE_DIR / "db.sqlite3"}')
 }
 
 
@@ -129,4 +127,50 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-CKEDITOR_UPLOAD_PATH = 'uploads/'
+#Cofigurações do CKEDITOR_5
+CKEDITOR_5_UPLOADS_PATH = "image/uploads/"
+
+CKEDITOR_5_CONFIGS = {
+    'default': {
+        'toolbar': [
+            'heading', '|',
+            'bold', 'italic', 'link', '|',
+            'numberedList', 'bulletedList', '|',
+            'imageUpload', 'blockQuote', 'undo', 'redo'
+        ],
+        'height': 400,
+        'width': '100%',
+    },
+}
+
+
+##Cloudinary
+
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
+
+# Config do Cloudinary
+CLOUDINARY_STORAGE = {
+    "CLOUD_NAME": config("CLOUD_NAME"),
+    
+    "API_KEY": config("API_KEY"),
+    "API_SECRET": config("API_SECRET"),
+}
+
+
+
+
+DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
+
+
+# CKEditor salva no  Cloudinary
+CKEDITOR_5_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
+
+#para usar uploadr.upload numa View 
+cloudinary.config( 
+    cloud_name = config("CLOUD_NAME"),
+    api_key = config("API_KEY"),
+    api_secret = config("API_SECRET"),
+    secure=True
+)

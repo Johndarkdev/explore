@@ -3,14 +3,13 @@ from django.db import models
 from django.shortcuts import get_object_or_404
 
 #ckeditor importations
-from ckeditor.fields import RichTextField
-from ckeditor_uploader.fields import RichTextUploadingField
+from django_ckeditor_5.fields import CKEditor5Field
 
 
 class Post(models.Model):
     title = models.CharField(max_length= 255, null= False, blank= False)
-    summary = RichTextUploadingField()
-    content = RichTextUploadingField()
+    summary = CKEditor5Field('Sumário', config_name='default')
+    content = CKEditor5Field('Conteúdo', config_name='default')
     
     author = models.ForeignKey(User, on_delete= models.PROTECT)
     

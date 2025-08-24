@@ -45,13 +45,13 @@ main {}
 }
 
 /*In case no.post found on a category*/
-.no.post-found-container {
+.no-post-found-container {
     height: 200px;
     position: relative;
     padding-top: 50px;
 }
 
-.no.post-found-container p {
+.no-post-found-container p {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -168,11 +168,12 @@ hr {
 
 .bg-others-post{
     position: relative;
-    background-size: cover;
+    background-size: 100% 100%;
+    background-position: center;
     background-repeat: no-repeat;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
-    height: 320px;
+    height: 300px;
     margin: 0px auto;
     width: 75%;
 }
@@ -213,6 +214,9 @@ hr {
         width: 100%;
     }
 
+.bg-others-post{
+    height: 500px;
+}
 
 
 }
