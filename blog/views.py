@@ -18,6 +18,7 @@ class HomeView(View):
         
         posts = Post.objects.all().exclude(category="destaque").order_by("-created_at")
         
+        
         post_category= Post.get_post_of_each_category()
             
         sugested_post = Post.get_sugested_post(posts, post_category)
@@ -31,7 +32,7 @@ class HomeView(View):
                 posts = posts.exclude(pk = p.pk)
         
         context = {
-            "all_posts": posts,
+            "all_posts": posts[:10],
             
             "post_category": post_category,
             
@@ -48,7 +49,6 @@ class HomeView(View):
 class PostsView(View):
     def get(self, request, category):
         
-        ##Query data
         posts = Post.objects.filter(category = category).order_by("-created_at")[:8]
         
         post_destaque = Post.get_destaque_post()

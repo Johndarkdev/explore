@@ -2,14 +2,14 @@
 
 @font-face {
     font-family: 'Playfair';
-    src: url('/static/css/font/Playfair_Display/PlayfairDisplay-BlackItalic.ttf');
+    src: url();
     format('truetype');
 }
 
 
 @font-face {
     font-family: 'Roboto';
-    src: url('/static/css/font/Roboto/Roboto-Regular.ttf')
+    src: url()
 }
 
 

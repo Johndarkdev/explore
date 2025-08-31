@@ -1,14 +1,17 @@
 from pathlib import Path
 import os
 from dj_database_url import parse as db_url
+from decouple import config
 
 # Base do projeto
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY
-SECRET_KEY = os.environ.get("SECRET_KEY", "dev_chave_segura")
-DEBUG = os.environ.get("DEBUG", "True") == "True"
-ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "localhost,127.0.0.1").split(",")
+SECRET_KEY = os.environ.get("SECRET_KEY")
+
+DEBUG = os.environ.get("DEBUG")
+
+ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS").split(",")
 
 # Apps
 THIRDY_PART_APPS = [
@@ -116,9 +119,9 @@ CKEDITOR_5_CONFIGS = {
 
 # Cloudinary
 CLOUDINARY_STORAGE = {
-    "CLOUD_NAME": os.environ.get("CLOUD_NAME", ""),
-    "API_KEY": os.environ.get("API_KEY", ""),
-    "API_SECRET": os.environ.get("API_SECRET", ""),
+    "CLOUD_NAME": os.environ.get("CLOUD_NAME"),
+    "API_KEY": os.environ.get("API_KEY"),
+    "API_SECRET": os.environ.get("API_SECRET"),
 }
 
 DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
@@ -127,11 +130,11 @@ CKEDITOR_5_FILE_STORAGE = DEFAULT_FILE_STORAGE
 
 import cloudinary
 cloudinary.config(
-    cloud_name=os.environ.get("CLOUD_NAME", ""),
-    api_key=os.environ.get("API_KEY", ""),
-    api_secret=os.environ.get("API_SECRET", ""),
+    cloud_name=os.environ.get("CLOUD_NAME"),
+    api_key=os.environ.get("API_KEY"),
+    api_secret=os.environ.get("API_SECRET"),
     secure=True
 )
 
 # News API
-NEWSAPI_KEY = os.environ.get("NEWSAPI_KEY", "")
+NEWSAPI_KEY = os.environ.get("NEWSAPI_KEY")

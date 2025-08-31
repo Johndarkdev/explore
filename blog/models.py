@@ -69,7 +69,7 @@ class Post(models.Model):
         
         tech_post = Post.objects.filter(category = "tech").order_by("-created_at").first()
         
-        polemic_post = Post.objects.filter(category = "polemic").order_by("-created_at").first()
+        polemic_post = Post.objects.filter(category = "rumor" or "polemic").order_by("-created_at").first()
         
         post_category = [
             celebrity_post, sport_post, tech_post,
