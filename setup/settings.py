@@ -1,25 +1,16 @@
 from pathlib import Path
 import os
-from decouple import config
 from dj_database_url import parse as db_url
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
+# Base do projeto
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# SECURITY
+SECRET_KEY = os.environ.get("SECRET_KEY", "dev_chave_segura")
+DEBUG = os.environ.get("DEBUG", "True") == "True"
+ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "localhost,127.0.0.1").split(",")
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = config("SECRET_KEY")
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config("DEBUG", default=False, cast=bool)
-
-ALLOWED_HOSTS= config("ALLOWED_HOSTS").split(',')
-
-
-# Application definition
+# Apps
 THIRDY_PART_APPS = [
     'django_ckeditor_5',
     'cloudinary',
@@ -37,14 +28,15 @@ DJANGO_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "django.contrib.sites",
     "django.contrib.sitemaps"
 ]
 
 INSTALLED_APPS = DJANGO_APPS + MY_APPS + THIRDY_PART_APPS
 
+# Middleware
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",  # serve static files na produção
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -73,63 +65,40 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "setup.wsgi.application"
 
-
 # Database
-# https://docs.djangoproject.com/en/5.1/ref/settings/#databases
-
 DATABASES = {
-    "default" : config("DATA_BASE_URL", cast=db_url, default=f'sqlite:///{BASE_DIR / "db.sqlite3"}')
+    "default": db_url(
+        os.environ.get("DATA_BASE_URL", f"sqlite:///{BASE_DIR / 'db.sqlite3'}")
+    )
 }
 
-
 # Password validation
-# https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
-
 AUTH_PASSWORD_VALIDATORS = [
-    {
-        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
-    },
-    {
-        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
-    },
-    {
-        "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
-    },
-    {
-        "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
-    },
+    {"NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",},
+    {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",},
+    {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",},
+    {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",},
 ]
 
-
 # Internationalization
-# https://docs.djangoproject.com/en/5.1/topics/i18n/
-
 LANGUAGE_CODE = "pt-br"
-
 TIME_ZONE = "Africa/Luanda"
-
 USE_I18N = True
-
 USE_TZ = True
 
+# Static files
+STATIC_URL = "/static/"
+STATICFILES_DIRS = [BASE_DIR / "static"]      # arquivos do projeto
+STATIC_ROOT = BASE_DIR / "staticfiles"        # coletados na produção
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.1/howto/static-files/
-
-STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, "/static")
-
-STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
-
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
-# Default primary key field type
-# https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
+# Media
+MEDIA_URL = "/media/"
+MEDIA_ROOT = BASE_DIR / "media"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-#Cofigurações do CKEDITOR_5
+# CKEditor
 CKEDITOR_5_UPLOADS_PATH = "image/uploads/"
 
 CKEDITOR_5_CONFIGS = {
@@ -145,41 +114,24 @@ CKEDITOR_5_CONFIGS = {
     },
 }
 
-
-##Cloudinary
-
-import cloudinary
-import cloudinary.uploader
-import cloudinary.api
-
-# Config do Cloudinary
+# Cloudinary
 CLOUDINARY_STORAGE = {
-    "CLOUD_NAME": config("CLOUD_NAME"),
-    
-    "API_KEY": config("API_KEY"),
-    "API_SECRET": config("API_SECRET"),
+    "CLOUD_NAME": os.environ.get("CLOUD_NAME", ""),
+    "API_KEY": os.environ.get("API_KEY", ""),
+    "API_SECRET": os.environ.get("API_SECRET", ""),
 }
-
-
-
 
 DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
 
+CKEDITOR_5_FILE_STORAGE = DEFAULT_FILE_STORAGE
 
-# CKEditor salva no  Cloudinary
-CKEDITOR_5_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
-
-#para usar uploadr.upload numa View 
-cloudinary.config( 
-    cloud_name = config("CLOUD_NAME"),
-    api_key = config("API_KEY"),
-    api_secret = config("API_SECRET"),
+import cloudinary
+cloudinary.config(
+    cloud_name=os.environ.get("CLOUD_NAME", ""),
+    api_key=os.environ.get("API_KEY", ""),
+    api_secret=os.environ.get("API_SECRET", ""),
     secure=True
 )
 
-
-##News API key
-NEWSAPI_KEY = config("NEWSAPI_KEY")
-
-
-SITE_ID = 1
+# News API
+NEWSAPI_KEY = os.environ.get("NEWSAPI_KEY", "")
