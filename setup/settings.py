@@ -11,7 +11,7 @@ SECRET_KEY = config("SECRET_KEY", default="insecure-secret")
 
 DEBUG = config("DEBUG", default=False, cast=bool)
 
-ALLOWED_HOSTS = config("ALLOWED_HOSTS", default="127.0.0.1").split(",")
+ALLOWED_HOSTS = config("ALLOWED_HOSTS", default="explorexyz.onrender.com").split(",")
 
 # Apps
 THIRDY_PART_APPS = [
