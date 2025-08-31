@@ -1,20 +1,27 @@
 <!--Categorias dos posts-->
-<h3>Categoria</h3>
+<h3> Explore também as principais categorias</h3>
 
 {% for post in post_category %}
+
 <!-- aparece apenas se tiver post -->
 {% if post %}
-<div class="post-category" style="background-image: {% if post.url_to_image %}url({{ post.url_to_image }}) {% else %} linear-gradient(blue, black){% endif %}">
+<div class="post-category">
 
-    <a href="
-        {% url 'post_view' title=post.title %}">
-        <div>
-            <p>
+    <a href="{% url 'post_view' slug=post.slug %}">
+        <article>
+            
+            <div style="background-image: {% if post.url_to_image %}url({{ post.url_to_image }}) {% else %} linear-gradient(blue, black){% endif %}">
+                
+                <span class="destaque">{{ post.category }}</span>
+            </div>
+            
+            <h2 class="mt-2">
                 {{ post.title }}
-            </p>
-            <span class="destaque">{{ post.category }}</span>
-        </div>
+            </h2>
+            
+        <article>
     </a>
 </div>
+<hr />
 {% endif %}
 {% endfor %}

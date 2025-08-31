@@ -37,6 +37,8 @@ DJANGO_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django.contrib.sites",
+    "django.contrib.sitemaps"
 ]
 
 INSTALLED_APPS = DJANGO_APPS + MY_APPS + THIRDY_PART_APPS
@@ -174,3 +176,10 @@ cloudinary.config(
     api_secret = config("API_SECRET"),
     secure=True
 )
+
+
+##News API key
+NEWSAPI_KEY = config("NEWSAPI_KEY")
+
+
+SITE_ID = 1

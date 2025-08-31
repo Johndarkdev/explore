@@ -1,19 +1,21 @@
 import requests
 from .models import NewsAPIPost
-
+from django.conf import settings
 
 #Fetch General News
 def fetch_posts(query, category, sortBy):
     
       
     params = {
-         'q': 'query',
+         'q': query,
         
         'language': 'pt',
         
         'sortBy': sortBy,
         
-        'apiKey': '00fe7029646840b7b89b7def651266f8',
+        'pageSize': 6,
+        
+        'apiKey': settings.NEWSAPI_KEY,
     }
     
     url = "https://newsapi.org/v2/everything"
@@ -33,5 +35,5 @@ def fetch_posts(query, category, sortBy):
         
         
         data = response.json()
-        print(data)
+        #print(data)
         NewsAPIPost.save_in_db(data["articles"], category)

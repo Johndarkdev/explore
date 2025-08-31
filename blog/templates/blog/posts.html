@@ -2,9 +2,39 @@
 
 {% load static %}
 
+<!--Titulo-->
 {% block title %}
-Home
+{% if category %}
+
+{{ category }}
+
+{% else %}
+Bem vindo ao Xplore - Leia conteúdos exclusivos
+{% endif %}
 {% endblock title %}
+
+<!--Meta title-->
+{% block meta_title %}
+{% if category %}
+
+{{ category }}
+
+{% else %}
+Bem vindo ao Xplore - Leia conteúdos exclusivos
+{% endif %}
+{% endblock %}
+
+<!--Meta description-->
+{% block meta_description %}
+Descubra artigos exclusivos sobre suas celebridades, desporto, tecnologia e muito mais. Veja os posts mais recentes aqui no Xplore.
+{% endblock %}
+
+
+<!--Meta description Open Graph-->
+{% block meta_description_og %}
+Descubra artigos exclusivos sobre suas celebridades, desporto, tecnologia e muito mais. Veja os posts mais recentes aqui no Xplore.
+{% endblock %}
+
 
 
 <!--Style block-->
@@ -15,15 +45,20 @@ Home
 {% block content %}
 
 <main>
+    <h1 class="sr-only">Blog Xplore</h1>
+    <p class="sr-only">
+        Explore conosco artigos exclusivos sobre tecnologia, polémica, desporto e muito mais.
+    </p>
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-8 bg-light">
 
                 {% if all_posts %}
                 {% for post in all_posts %}
-                <a href="{% url 'post_view' title=post.title %}" class="post-link">
-                    <div class="post-container ">
-                        <h1 class="post-title">{{ post.title }}</h1>
+                <a href="{% url 'post_view' slug=post.slug %}" class="post-link">
+                    <article class="post-container ">
+                        <h2 class="post-title">{{ post.title }}</h2>
+
                         <p style="text-indent: 7px">
                             {{ post.created_at|date:"d, M Y, h:m" }} por <cite>{{ post.author.get_full_name }}</cite>
                         </p>
@@ -31,10 +66,10 @@ Home
                         {{ post.summary|safe }}
 
                         <img class="bg-light" src="{{ post.url_to_image }}" alt="{{ post.title }}" />
-                </div>
-                {% endfor %}
-
+                </article>
             </a>
+            {% endfor %}
+
             {% else %}
             <p class="mt-4 text-center">
                 Nenhuma notícia encontrada!
@@ -46,18 +81,17 @@ Home
         <div class="col-sm-4 post-category-container">
             <!--Categoria dos posts-->
             {% include 'category_posts.html' %}
-            
+
             <!--Post veja também-->
             {% include 'see_more.html' %}
+        </div>
+    </div>
+
+
+    <!--Posts de outras fontes-->
+
+    {% include 'other_source_posts.html' %}
 </div>
-</div>
-
-
-<!--Posts de outras fontes-->
-
-{% include 'other_source_posts.html' %}
-</div>
-
 
 </main>
 {% endblock content %}

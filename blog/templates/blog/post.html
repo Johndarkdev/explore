@@ -6,9 +6,27 @@
 {% static 'css/general_style.css' %}
 {% endblock %}
 
+<!--Page title-->
 {% block title %}
-{{ post.title }}
+{{ post.title }} | Blog Xplore
 {% endblock %}
+
+<!--Meta title-->
+{% block meta_title %}
+{{ post.title }} | Blog Xplore
+{% endblock %}
+
+<!--Meta description-->
+{% block meta_description %}
+{{ post.description }}
+{% endblock %}
+
+
+<!--Meta description Open Graph-->
+{% block meta_description_og %}
+{{ post.description }}
+{% endblock %}
+
 
 {% block content %}
 <main>
@@ -20,16 +38,21 @@
             <div class="col-sm-8 bg-light">
 
                 <div class="post-container ">
-                    <article>
-                        <h1 class="post-title">{{ post.title }}</h1>
+                    <article itemscope itemtype="https://schema.org/BlogPosting">
 
-                        <p>
-                            {{ post.created_at|date:"d, M Y h:m"}} por <cite>{{ post.author.get_full_name }}
+                        <h1 itemprop="headline" class="post-title">{{ post.title }}</h1>
+
+                        
+                            <p>
+                 <time itemprop="datePublished" datetime="{{ post.created_at|date:'d-M-Y'}}">{{ post.created_at|date:"d, M Y h:m"}}</time>
+                                |
+                                <span itemprop="author" itemscope itemtype="https://schema.org/Person">
+                                    Por <span itemprop="name"> <cite>{{ post.author.get_full_name }}</cite></span>
+                                </span>
                             </p>
 
-                            <section>
-
-                                {{ post.content|safe }}
+                            <section itemprop="articleBody">
+            {{ post.content|safe }}
                             </section>
                         </article>
                     </div>
@@ -38,20 +61,20 @@
 
 
                 <div class="col-sm-4 post-category-container">
-            <!--Categoria dos posts-->
-            {% include 'category_posts.html' %}
-            
-            <!--Post veja também-->
-            {% include 'see_more.html' %}
-</div>
-</div>
+                    <!--Categoria dos posts-->
+                    {% include 'category_posts.html' %}
+
+                    <!--Post veja também-->
+                    {% include 'see_more.html' %}
+                </div>
+            </div>
 
 
-<!--Posts de outras fontes-->
+            <!--Posts de outras fontes-->
 
-{% include 'other_source_posts.html' %}
-</div>
+            {% include 'other_source_posts.html' %}
+        </div>
 
 
-</main>
-{% endblock %}
+    </main>
+    {% endblock %}
