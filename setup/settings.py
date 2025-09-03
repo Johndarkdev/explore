@@ -1,6 +1,6 @@
 from pathlib import Path
 import os
-from dj_database_url import parse as db_url
+import dj_database_url as db_url
 from decouple import config
 
 # Base do projeto
@@ -70,18 +70,9 @@ WSGI_APPLICATION = "setup.wsgi.application"
 
 # Database
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        
-        'NAME': config('POSTGRES_DB'),
-        
-        'USER': config('POSTGRES_USER'),   
-        'PASSWORD': config('POSTGRES_PASSWORD'),
-        
-        'HOST': config('POSTGRES_HOST'),
-        
-        'PORT': config('POSTGRES_PORT', '5432'),
-    }
+    'default': db_url.config(
+        default=config("DATABASE_URL")
+    )
 }
 
 # Password validation
