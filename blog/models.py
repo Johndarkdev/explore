@@ -12,7 +12,7 @@ from django.utils.text import slugify
 class Post(models.Model):
     title = models.CharField(max_length= 500, null= False, blank= False)
     
-    slug = models.SlugField(unique=True, null=True, editable=False)
+    slug = models.SlugField(max_length=255, unique=True, null=True, editable=False)
     
     description = models.TextField()
     
@@ -38,7 +38,7 @@ class Post(models.Model):
         
     def save(self, *args, **kwargs):
         if not self.slug:
-            self.slug = slugify(self.title)
+            self.slug = slugify(self.title)[:255]
             self.save()
             
         super().save(*args, **kwargs)
@@ -118,7 +118,7 @@ class NewsAPIPost(models.Model):
     
     title = models.CharField(max_length = 500)
     
-    slug = models.SlugField(unique=True, editable=False)
+    slug = models.SlugField(max_length=255, unique=True, editable=False)
     
     description = models.TextField()
     
@@ -147,7 +147,7 @@ class NewsAPIPost(models.Model):
         
     def save(self, *args, **kwargs):
         if not self.slug and self.title:
-            self.slug = slugify(self.title)
+            self.slug = slugify(self.title)[:255]
             
         super().save(*args, **kwargs)
     
