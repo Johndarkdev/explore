@@ -10,7 +10,7 @@ from django_ckeditor_5.fields import CKEditor5Field
 from django.utils.text import slugify
 
 class Post(models.Model):
-    title = models.CharField(max_length= 255, null= False, blank= False)
+    title = models.CharField(max_length= 500, null= False, blank= False)
     
     slug = models.SlugField(unique=True, null=True, editable=False)
     
@@ -23,7 +23,7 @@ class Post(models.Model):
     
     category = models.CharField(max_length=100)
     
-    url_to_image = models.CharField(max_length=255, null=True, blank=True)
+    url_to_image = models.CharField(max_length=500, null=True, blank=True)
     
     created_at = models.DateTimeField(auto_now_add= True)
     
@@ -116,7 +116,7 @@ class Post(models.Model):
 class NewsAPIPost(models.Model):
     name = models.CharField(max_length = 255)
     
-    title = models.CharField(max_length = 255)
+    title = models.CharField(max_length = 500)
     
     slug = models.SlugField(unique=True, editable=False)
     
