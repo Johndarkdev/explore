@@ -7,7 +7,7 @@ class StaticSitemap(Sitemap):
     priority = 1.0
     
     def items(self):
-        urls = ['/', '/posts/tech', '/posts/sport', '/posts/polemic', '/posts/celebrity']
+        urls = ['/', '/posts/tech', '/posts/sport', '/posts/lifestyle', '/posts/celebrity']
         
         return urls
         

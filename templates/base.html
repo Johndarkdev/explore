@@ -29,17 +29,15 @@
   
   <meta property="og:type" content="{% if post %}article{% else %}website{% endif %}">
   
-  <meta property="og:url" content="{% if post %} {% url 'post_view' slug=post.slug  %} {% elif category %} {% url 'posts_view' category %}
-  {% else %}
-  {% url 'home_view' %}
+  <meta property="og:url" content="{% if post %}https://explorexyz.onrender.com/post/{{ post.slug }} {% elif category %}https://explorexyz.onrender.com/posts/{{ category }}
+  {% else %}https://explorexyz.onrender.com
   {% endif %}">
   
   <meta property="og:image" content="{% if post.url_to_image %} {{ post.url_to_image }} {% else %} {% static 'img/logo/xplore-logo1.png'%} {% endif %}">
 
   <!-- Canonical -->
-  <link rel="canonical" href="{% if post %} {% url 'post_view' slug=post.slug  %} {% elif category %} {% url 'posts_view' category %}
-  {% else %}
-  {% url 'home_view' %}
+  <link rel="canonical" href="{% if post %}https://explorexyz.onrender.com/post/{{ post.slug }} {% elif category %}https://explorexyz.onrender.com/posts/{{ category }}
+  {% else %}https://explorexyz.onrender.com
   {% endif %}">
   
     
@@ -179,7 +177,7 @@
 </ul>
 
 <p>
-    © 2025 Xplore. Todos direitos reservados.
+    © 2025 Explore. Todos direitos reservados.
 </p>
 </div>
 </footer>

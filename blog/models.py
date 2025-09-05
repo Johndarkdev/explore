@@ -76,6 +76,10 @@ class Post(models.Model):
                 polemic_post
         ]
         
+        for item in post_category:
+            if item == None:
+                post_category.remove(item)
+        
         return post_category
         
     

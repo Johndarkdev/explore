@@ -20,19 +20,19 @@ Bem vindo ao Xplore - Leia conteúdos exclusivos
 {{ category }}
 
 {% else %}
-Bem vindo ao Xplore - Leia conteúdos exclusivos
+Bem-vindo ao Explore - Leia conteúdos exclusivos
 {% endif %}
 {% endblock %}
 
 <!--Meta description-->
 {% block meta_description %}
-Descubra artigos exclusivos sobre suas celebridades, desporto, tecnologia e muito mais. Veja os posts mais recentes aqui no Xplore.
+Descubra artigos exclusivos sobre suas celebridades, desporto, tecnologia e muito mais. Veja os posts mais recentes aqui no Explore.
 {% endblock %}
 
 
 <!--Meta description Open Graph-->
 {% block meta_description_og %}
-Descubra artigos exclusivos sobre suas celebridades, desporto, tecnologia e muito mais. Veja os posts mais recentes aqui no Xplore.
+Descubra artigos exclusivos sobre suas celebridades, desporto, tecnologia e muito mais. Veja os posts mais recentes aqui no Explore.
 {% endblock %}
 
 
@@ -45,7 +45,7 @@ Descubra artigos exclusivos sobre suas celebridades, desporto, tecnologia e muit
 {% block content %}
 
 <main>
-    <h1 class="sr-only">Blog Xplore</h1>
+    <h1 class="sr-only">Blog Explore</h1>
     <p class="sr-only">
         Explore conosco artigos exclusivos sobre tecnologia, polémica, desporto e muito mais.
     </p>
@@ -92,6 +92,6 @@ Descubra artigos exclusivos sobre suas celebridades, desporto, tecnologia e muit
 
     {% include 'other_source_posts.html' %}
 </div>
-
+{{ posts_category }}
 </main>
 {% endblock content %}

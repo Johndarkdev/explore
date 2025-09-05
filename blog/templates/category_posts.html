@@ -1,11 +1,12 @@
 <!--Categorias dos posts-->
 
-{% if post %}
+{% if post_category %}
 <h3> Explore também as principais categorias</h3>
 
 {% for post in post_category %}
 <div class="post-category">
 
+    {% if post %}
     <a href="{% url 'post_view' slug=post.slug %}">
         <article>
 
@@ -22,5 +23,6 @@
             </a>
         </div>
         <hr />
-    {% endfor %}
-    {% endif %}
+        {% endif %}
+{% endfor %}
+{% endif %}
