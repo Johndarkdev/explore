@@ -4,70 +4,35 @@
     <h3>Veja também posts de outras fontes</h3>
 
     {% for post in posts_other_sources %}
-    
+
     <div style="background-image: linear-gradient(white 45%, gray, rgb(13,11,43))" class="post-container">
 
-    <article itemscope itemtype="https://schema.org/BlogPosting">
-        <a href="{% url 'newsapi_post_view' slug=post.slug %}">
-            <h2 itemprop="headline" class="post-title">{{ post.title }}</h2>
-
-            <p>
-                <time itemprop="datePublished" datetime="{{ post.created_at|date:'d-M-Y'}}">
-                    {{ post.created_at|date:"d, M Y h:m" }}
-                </time>
-                <span itemprop="author" itemscope itemtype="https://schema.org/Person">
-                    Por <span itemprop="name"><cite>{{ post.author }}</cite></span> |
-                </span>
-                <span>{{ post.name }}</span>
-            </p>
-
-            <p itemprop="articleBody" class="mx-2">
-                {{ post.summary|safe }}
-            </p>
-        </a>
-
-        <div class="bg-others-post" style="background-image: url({{ post.urlToImage }})">
-            <a class="original-post-link" href="{{ post.urlToPost }}">
-                <span class="destaque">Ver original</span>
-            </a>
-        </div>
-    </article>
-</div>
-
-    <!--div style="background-image: linear-gradient(white 45%, gray, rgb(13,11,43))" class="post-container">
-
-        <a href="{% url 'newsapi_post_view' slug=post.slug %}">
-            <article itemscope itemtype="https://schema.org/BlogPosting">
-                
+        <article itemscope itemtype="https://schema.org/BlogPosting">
+            <a href="{% url 'newsapi_post_view' slug=post.slug %}">
                 <h2 itemprop="headline" class="post-title">{{ post.title }}</h2>
 
                 <p>
-                 <time itemprop="datePublished" datetime="{{ post.created_at|date:'d-M-Y'}}">{{ post.created_at|date:"d, M Y h:m"}}</time>
-                                <span itemprop="author" itemscope itemtype="https://schema.org/Person">
-                                    Por <span itemprop="name">
-                                        <cite>{{ post.author }}</cite></span> | 
-                                    <span>
-                    {{post.name}}
+                    <time itemprop="datePublished" datetime="{{ post.created_at|date:'d-M-Y'}}">
+                        {{ post.created_at|date:"d, M Y h:m" }}
+                    </time>
+                    <span itemprop="author" itemscope itemtype="https://schema.org/Person">
+                        Por <span itemprop="name"><cite>{{ post.author }}</cite></span> |
                     </span>
-                                    </p>
+                    <span>{{ post.name }}</span>
+                </p>
 
                 <p itemprop="articleBody" class="mx-2">
                     {{ post.summary|safe }}
                 </p>
-
             </a>
 
             <div class="bg-others-post" style="background-image: url({{ post.urlToImage }})">
-
-
-                <a class="original-post-link" href="{{post.urlToPost}}">
+                <a class="original-post-link" href="{{ post.urlToPost }}">
                     <span class="destaque">Ver original</span>
                 </a>
-
             </div>
-
         </article>
-    </div> -->
+    </div>
     {% endfor %}
     {% endif %}
 </div>
