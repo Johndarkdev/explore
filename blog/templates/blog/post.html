@@ -42,39 +42,37 @@
 
                         <h1 itemprop="headline" class="post-title">{{ post.title }}</h1>
 
-                        
-                            <p>
-                 <time itemprop="datePublished" datetime="{{ post.created_at|date:'d-M-Y'}}">{{ post.created_at|date:"d, M Y h:m"}}</time>
-                                |
-                                <span itemprop="author" itemscope itemtype="https://schema.org/Person">
-                                    Por <span itemprop="name"> <cite>{{ post.author.get_full_name }}</cite></span>
-                                </span>
-                            </p>
 
-                            <section itemprop="articleBody">
-            {{ post.content|safe }}
-                            </section>
-                        </article>
-                    </div>
+                        <p>
+                            <time itemprop="datePublished" datetime="{{ post.created_at|date:'d-M-Y'}}">{{ post.created_at|date:"d, M Y h:m"}}</time>
+                            |
+                            <span itemprop="author" itemscope itemtype="https://schema.org/Person">
+                                Por <span itemprop="name"> <cite>{{ post.author.get_full_name }}</cite></span>
+                            </span>
+                        </p>
 
+                        <section itemprop="articleBody">
+                            {{ post.content|safe }}
+                        </section>
+                    </article>
                 </div>
 
-
-                <div class="col-sm-4 post-category-container">
-                    <!--Categoria dos posts-->
-                    {% include 'category_posts.html' %}
-
-                    <!--Post veja também-->
-                    {% include 'see_more.html' %}
-                </div>
             </div>
 
 
-            <!--Posts de outras fontes-->
+            <div class="col-sm-4 post-category-container">
+                <!--Categoria dos posts-->
+                {% include 'category_posts.html' %}
 
-           
+                <!--Post veja também-->
+                {% include 'see_more.html' %}
+            </div>
         </div>
-     {% include 'other_source_posts.html' %}
 
-    </main>
-    {% endblock %}
+    </div>
+
+    <!--Posts de outras fontes-->
+    {% include 'other_source_posts.html' %}
+
+</main>
+{% endblock %}

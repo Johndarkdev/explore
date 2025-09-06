@@ -23,7 +23,7 @@ class HomeView(View):
             
         sugested_post = Post.get_sugested_post(posts, post_category)
         
-        posts_other_sources = NewsAPIPost.get_newsapi_posts()[:10]
+        posts_other_sources = NewsAPIPost.get_newsapi_posts()[:12]
         
         """Evitar posts duplicados numa só página"""
         
@@ -57,7 +57,7 @@ class PostsView(View):
             
         sugested_post = Post.get_sugested_post(posts, post_category)
         
-        posts_other_sources = NewsAPIPost.get_newsapi_posts()[:10]
+        posts_other_sources = NewsAPIPost.get_newsapi_posts()[:12]
         
         """Evitar posts duplicados numa só página"""
         
@@ -92,7 +92,7 @@ class ShowAPostView(View):
         
         post_destaque = Post.get_destaque_post()
         
-        posts_other_sources = NewsAPIPost.get_newsapi_posts()[:10]
+        posts_other_sources = NewsAPIPost.get_newsapi_posts()[:12]
         
         sugested_post = Post.get_sugested_post(post, post_category)
         

@@ -165,27 +165,33 @@ class NewsAPIPost(models.Model):
         
         for post in all_posts:
             
-            if post["title"] and post["urlToImage"]:
-                
-                p = NewsAPIPost()
-                p.name = post["source"]["name"]
-                
-                p.title = post["title"]
-                
-                p.summary = post["description"]
-                
-                p.content = post["content"]
-                
-                p.author = post["author"] or "desconhecido "
-                
-                p.urlToImage = post["urlToImage"]
-                
-                p.description = post["description"]
-                
-                p.urlToPost = post["url"]
-                
-                p.created_at = post["publishedAt"]
-                
-                p.category = category
+            if post["title"] != None and post["title"] != '' and post["urlToImage"] and post["urlToImage"] != "":
             
-                p.save()
+                p = NewsAPIPost.objects.filter(title=post["title"]).first()
+            
+                if p:
+                    pass
+            
+                else:
+                    p = NewsAPIPost()
+                    p.name = post["source"]["name"]
+                    
+                    p.title = post["title"]
+                    
+                    p.summary = post["description"]
+                    
+                    p.content = post["content"]
+                    
+                    p.author = post["author"] or "desconhecido "
+                    
+                    p.urlToImage = post["urlToImage"]
+                    
+                    p.description = post["description"]
+                    
+                    p.urlToPost = post["url"]
+                    
+                    p.created_at = post["publishedAt"]
+                    
+                    p.category = category
+                
+                    p.save()

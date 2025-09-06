@@ -1,12 +1,14 @@
 import requests
 from .models import NewsAPIPost
 from django.conf import settings
-from datetime import date
+from datetime import date, timedelta
 
 #Fetch General News
 def fetch_posts(query, category, sortBy):
     
-      
+    today = date.today()  
+    last_3_days = today - timedelta(days=5)
+    
     params = {
          'q': query,
         
@@ -14,9 +16,11 @@ def fetch_posts(query, category, sortBy):
         
         'sortBy': sortBy,
         
-        'pageSize': 3,
+        'pageSize': 4,
         
-        #'from': date.today(),
+        'from': last_3_days.isoformat(),
+        
+        'to': today.isoformat(),
         
         'apiKey': settings.NEWSAPI_KEY,
     }
